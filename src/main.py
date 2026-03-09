@@ -1,6 +1,6 @@
 import pygame
 
-from root.settings import *
+from core.root.settings import *
 from core.level_engine    import LevelEngine
 
 # * Main Game Loop

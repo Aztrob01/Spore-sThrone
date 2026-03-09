@@ -4,9 +4,9 @@ from root.settings       import *
 from root.utils import image_load
 from core.level import *
 from core.player_core  import PlayerCore
-from entities.entities   import Entities
-from core.combat_engine  import CombatEngine
-from entities.enemy import *
+from actors.entities.entities   import Entities
+from core.combat.combat_engine  import CombatEngine
+from actors.entities.enemy import *
 
 
 class LvlDataHandler:
@@ -21,7 +21,7 @@ class LvlDataHandler:
 
     def entities_randomize(self, n):
         import random
-        from entities.entities import Entities
+        from actors.entities.entities import Entities
         
         w = self.entities
         x = []

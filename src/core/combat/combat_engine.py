@@ -1,8 +1,8 @@
 import pygame
 from root.settings import *
-from combat.actions import ActionSystem
-from combat.combat_buffer import CombatBuffer
-from core.team_engine import TeamEngine
+from core.combat.actions import ActionSystem
+from core.combat.combat_buffer import CombatBuffer
+from core.combat.team_engine import TeamEngine
 
 class CombatEngine:
     def __init__(self, leveldata, player, eventtoken):
