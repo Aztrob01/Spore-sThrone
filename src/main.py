@@ -1,14 +1,12 @@
 import pygame
 
-from core.root.settings import *
-from core.level_engine    import LevelEngine
-
-# * Main Game Loop
+from game.root.settings import *
+from game.core.lvl_eng  import LevelEngine
 
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        self.m_name = pygame.display.set_caption('Dragon Rose')
+        self.m_name = pygame.display.set_caption("Spore's Throne")
         self.events = pygame.event.get() # * starts geting an obsolete value just to initialize self.level correctly
         self.clock  = pygame.time.Clock()  
         self.level  = LevelEngine(self.events)
@@ -27,6 +25,14 @@ class Game:
             pygame.display.update()
             self.clock.tick(GAMECLOCK)
 
+from game.core.lvl_eng import LevelManager
+
+pm = LevelManager(None)
+pm.read('x')
+
+exit(0)
+
 game = Game()
 if __name__ == '__main__':
     game.run()
+
