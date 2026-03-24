@@ -1,0 +1,11 @@
+{
+    "level": {
+        "id": 1,
+        "name": "Training Ground",
+        "battleground": "./src/assets/image/battlegrounds/trainingcamp.png",
+        "enemy_list": {
+            "0": ["dmy", [1, 10], 0.60],
+            "1": ["gdm", [5, 10], 0.20]
+        }   
+    }
+}
