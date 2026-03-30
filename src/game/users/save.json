@@ -1,0 +1,23 @@
+{
+  "save_metadata": {
+    "last_saved": "2026-03-26",
+    "last_section": "2026-03-26 17:00",
+    "game_version": "Apollo 0.0.1"
+  },
+  "player_data": {
+    "gold": 1200,
+    "inventory": "Clear",
+    "localization": {
+      "map": "Training Ground - Guilhadard's Mansion",
+      "x": 0,
+      "y": 0
+    },
+    "active_party": [1, 2, 4]
+  },
+  "party_data": {
+    "slot_1": null,
+    "slot_2": null,
+    "slot_3": null,
+    "slot_4": null
+  }
+}

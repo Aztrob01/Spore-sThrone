@@ -1,38 +1,38 @@
-import pygame
+import pygame, json, os, datetime
 
-from game.root.settings import *
-from game.core.lvl_eng  import LevelEngine
+#? This code was built using Pygame Lib and Better Comments Extension (VS Code)
+from core.manager_flow  import FlowManager
+from core.manager_data import DataLoader
 
-class Game:
+class GameLoop:
     def __init__(self):
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        self.m_name = pygame.display.set_caption("Spore's Throne")
-        self.events = pygame.event.get() # * starts geting an obsolete value just to initialize self.level correctly
-        self.clock  = pygame.time.Clock()  
-        self.level  = LevelEngine(self.events)
+        self.__loader = DataLoader()
+        self.__screen = pygame.display.set_mode((self.__loader.data_settings['video']['actual_res'][0], self.__loader.data_settings['video']['actual_res'][1]))
+        self.__m_name = pygame.display.set_caption("Spore's Throne")
+        self.__debug  = None
+        self.__clock  = pygame.time.Clock()
+
+        self.level    = FlowManager(self.__loader.data_save, self.__loader.data_level)
 
     def run(self):
         while True:
-            self.events = pygame.event.get() # * update events until call anything 
-            # ? print(events)
-            for event in self.events:
+            events = pygame.event.get()
+            for event in events:
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    exit(0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                    exit(0)    
+
+
+            self.level.events = events
 
             self.level.play()
-
             pygame.display.update()
-            self.clock.tick(GAMECLOCK)
 
-from game.core.lvl_eng import LevelManager
+            self.__clock.tick(self.__loader.game['clock'])
 
-pm = LevelManager(None)
-pm.read('x')
+# ------------------------
 
-exit(0)
+game = GameLoop()
+game.run()
 
-game = Game()
-if __name__ == '__main__':
-    game.run()
 
