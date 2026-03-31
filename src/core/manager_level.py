@@ -1,5 +1,5 @@
 from core.unities.entities.entities import Entities
-from core.unities.entities.enemy    import dmy, gob
+from root.registry import ENEMIES
 import random
 
 class LevelBuilder:
@@ -12,11 +12,6 @@ class LevelBuilder:
     
     def generate_enemies(self):
 
-        entities_dict = {
-            'dmy': dmy,
-            'gob': gob,
-        }
-
         entities = []
         output = []
         slots = random.randint(1, 5)
@@ -28,7 +23,7 @@ class LevelBuilder:
             gen_chance = random.uniform(0, 1)
             for ents in entities:
                 if gen_chance <= ents[2]:
-                    if ents[0] in entities_dict:
-                        output.append(Entities(entities_dict[ents[0]]()))
+                    if ents[0] in ENEMIES:
+                        output.append(Entities(ENEMIES[ents[0]]()))
         
         return output
