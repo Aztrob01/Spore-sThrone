@@ -12,7 +12,7 @@ class GameLoop:
         self.__debug  = None
         self.__clock  = pygame.time.Clock()
 
-        self.level    = FlowManager(self.__loader.data_save, self.__loader.data_level)
+        self.level    = FlowManager(self.__loader.data_player, self.__loader.data_level)
 
     def run(self):
         while True:

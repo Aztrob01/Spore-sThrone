@@ -22,8 +22,7 @@ class DataLoader:
         
         }
         self.data_save     = self.__main_data_save
-        self.data_player   = self.__main_data_save['player_data']
-        self.data_party    = self.__main_data_save['party_data']
+        self.data_player   = self.__main_data_save['player']
         self.data_level    = self.__main_data_level['level']
         self.data_settings = self.__main_data_settings['settings']
         self.last_update   = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
