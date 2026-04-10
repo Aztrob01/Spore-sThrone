@@ -21,17 +21,14 @@ class FlowManager:
             self.__explore = None
             print('Loading exploration...')
         elif self.__state[1] == 'fight':
-            battleground = self.__level.generate_battleground()
-            mobs         = self.__level.generate_enemies()
-            team         = self.__player.generate_team()
+            battleground  = self.__level.generate_battleground()
+            mobs          = self.__level.generate_enemies()
+            team          = self.__player.generate_team()
             self.__combat = CombatEngine()
 
-            self.__combat.level['data']['image'] = battleground
-
-            for nums, members in enumerate(self.__combat.player['team']):
-                self.__combat.player['team'][nums] = team[nums]
-            for nums, entities in enumerate(self.__combat.level['entities']):
-                self.__combat.level['entities'][nums] = entities
+            self.__combat.data['cenary'] = battleground
+            self.__combat.data['team'] = team
+            self.__combat.data['entities'] = mobs
 
     def play(self):
         if self.__state[0] == 0:

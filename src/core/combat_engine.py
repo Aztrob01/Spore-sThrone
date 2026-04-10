@@ -1,7 +1,7 @@
 import pygame
 
 from core.view.renderizator import Renderization
-from core.combat.profile import CombatProfileData
+from core.combat.profile    import CombatProfileData
 
 
 
@@ -22,6 +22,12 @@ class CombatEngine:
                 'active': False,
                 'entities': None,
                 'chars': None,
+            },
+            'positions': {
+                'l': { 0: (0.195, 0.460), 1: (0.106, 0.643), 2: (0.154, 0.551), 3: (0.28, 0.51),
+                4: (0.106, 0.643), 5: (0.170, 0.627)},
+                'r': { 0: (0.800, 0.460), 1: (0.847, 0.551), 2: (0.895, 0.643), 3: (0.766, 0.611),
+                4: (0.721, 0.517) }
             }
         }
         
@@ -54,6 +60,11 @@ class CombatEngine:
         pass
 
     def play(self):
-        for unities in self.player['team']:
-            unity = self.player['team'][unities]
-            self.renderization.draw_entity(unity, (300, 300))
+        self.renderization.draw_background((0, 0))
+
+        for nums, unities in enumerate(self.data['entities']):
+            pos = self.data['positions']['l'][nums]
+            self.renderization.draw_entity(unities, (pos[0], pos[1]))
+        for nums, unities in enumerate(self.data['team']):
+            pos = self.data['positions']['r'][nums]
+            self.renderization.draw_entity(unities, (pos[0], pos[1]))

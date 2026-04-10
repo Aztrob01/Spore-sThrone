@@ -15,6 +15,4 @@ class Characters:
         self.sprite = AnimaSprite(self)
         self.rect   = None
 
-    def update(self):
-        update_sprite(self.state, self)
 
