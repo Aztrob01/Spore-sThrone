@@ -37,7 +37,7 @@
         "type": "dpl",
         "attr": {
           "received": { "hp": 0, "str": 15, "dex": 0, "knw": 0, "lky": 0, "res": 10 },
-          "level": [7, 6000],
+          "level": [8, 6000],
           "points_remaining": 10
         },
         "history": {

@@ -2,7 +2,7 @@
     "level": {
         "id": 1,
         "name": "Training Ground",
-        "battleground": "./src/assets/image/battlegrounds/trainingcamp.png",
+        "battleground": "./src/assets/image/battlegrounds/slotcover.jpeg",
         "enemies": {
             "0": ["dmy", [1, 10], 0.80],
             "1": ["gdm", [5, 10], 0.20]
