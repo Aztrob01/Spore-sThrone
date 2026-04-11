@@ -5,7 +5,9 @@
         "battleground": "./src/assets/image/battlegrounds/slotcover.png",
         "enemies": {
             "0": ["dmy", [1, 10], 0.80],
-            "1": ["gdm", [5, 10], 0.20]
+            "1": ["gob", [5, 10], 0.20],
+            "2": ["gdm", [1, 100], 0.3],
+            "3": ["alk", [3, 10], 0.5]
         }   
     }
 }

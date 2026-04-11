@@ -10,7 +10,7 @@ class Characters:
     def __init__(self, user):
         self.job = user
         self.cid = 0
-        self.profile = ProfileData(user)
+        self.profile = ProfileData(self)
         
         self.state   = ['fighting', 'idle']
         self.sprite  = AnimaSprite(self)
