@@ -53,7 +53,7 @@ class LevelBuilder:
         if len(output) == 0:
             for objects in entry:
                 print("Value break. Creating an random creature for guarantee.")
-                obj = Entities(ENEMIES[objects][0]())
+                obj = Entities(ENEMIES[objects[0]())
                 obj.profile.stats['level']['current']= random.randint(objects[1][0], objects[1][1])
                 output.append(obj)
                 print('Emergency Entity Created.')
