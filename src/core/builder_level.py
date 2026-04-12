@@ -47,8 +47,17 @@ class LevelBuilder:
                     print(output)
                     print(f'Appended {obj.job.data['info']['codename']} at position {i} with level {obj.profile.stats['level']['current']}')
                     print(f'{obj.job.data['info']['codename']} absorved {ch}% to appear from {objects[2]}%')
-    
+                    break
         
-        print('Output scape', output)
+        
+        if len(output) == 0:
+            for objects in entry:
+                print("Value break. Creating an random creature for guarantee.")
+                obj = Entities(ENEMIES[objects][0]())
+                obj.profile.stats['level']['current']= random.randint(objects[1][0], objects[1][1])
+                output.append(obj)
+                print('Emergency Entity Created.')
+                break
+                
         
         return output
