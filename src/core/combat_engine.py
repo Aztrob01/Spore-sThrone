@@ -63,8 +63,10 @@ class CombatEngine:
         self.renderization.draw_background((0, 0))
 
         for nums, unities in enumerate(self.data['entities']):
-            pos = self.data['positions']['l'][nums]
-            self.renderization.draw_entity(unities, (pos[0], pos[1]))
+            if unities is not None:
+                pos = self.data['positions']['l'][nums]
+                self.renderization.draw_entity(unities, (pos[0], pos[1]))
         for nums, unities in enumerate(self.data['team']):
-            pos = self.data['positions']['r'][nums]
-            self.renderization.draw_entity(unities, (pos[0], pos[1]))
+            if unities is not None:
+                pos = self.data['positions']['r'][nums]
+                self.renderization.draw_entity(unities, (pos[0], pos[1]))
