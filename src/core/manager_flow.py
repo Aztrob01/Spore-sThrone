@@ -3,6 +3,7 @@ import pygame, random
 from core.combat_engine import CombatEngine
 from core.builder_level import LevelBuilder
 from core.builder_player import PlayerBuilder
+from core.manager_inputs import inputManager
 
 class FlowManager:
     def __init__(self, player, level):
@@ -13,8 +14,8 @@ class FlowManager:
         self.__explore = None 
         self.__combat  = None
         self.__state   = [0, 'fight']
-        
-        self.events  = None
+
+        self.events = None
 
     def load(self):
         if self.__state[1] == 'explore':
@@ -35,3 +36,4 @@ class FlowManager:
             self.load()
             self.__state[0] = 1
         self.__combat.play()
+        

@@ -1,8 +1,8 @@
 import pygame
 
 from core.view.renderizator import Renderization
+from core.manager_events    import CombatEvents
 from core.combat.profile    import CombatProfileData
-
 
 
 class CombatEngine:
@@ -32,11 +32,10 @@ class CombatEngine:
         }
         
 
-        self.events  = None
-        self.display = pygame.display.get_surface()
-        self.action_controller       = None
-        self.combatevents_controller = None
-        self.renderization = Renderization()
+        self.__events  = CombatEvents()
+        self.__display = pygame.display.get_surface()
+        self.__action_controller       = None
+        self.__renderization           = Renderization()
 
     def __prepare(self):
         if self.data['temp']['active'] is False:
@@ -47,26 +46,19 @@ class CombatEngine:
             
             self.data['temp']['active'] = True
 
-    def prev(self, target=None):
-        pass
-
-    def next(self, target=None):
-        pass
-
-    def apply_combat_profile(self):
-        pass    
-
-    def update(self):
-        pass
+    def roll(self):
+        self
 
     def play(self):
-        self.renderization.draw_background((0, 0))
+        self.__renderization.draw_background((0, 0))
 
         for nums, unities in enumerate(self.data['entities']):
             if unities is not None:
                 pos = self.data['positions']['l'][nums]
-                self.renderization.draw_entity(unities, (pos[0], pos[1]))
+                self.__renderization.draw_entity(unities, (pos[0], pos[1]))
+                self.__renderization.draw_lifebar(unities)
         for nums, unities in enumerate(self.data['team']):
             if unities is not None:
                 pos = self.data['positions']['r'][nums]
-                self.renderization.draw_entity(unities, (pos[0], pos[1]))
+                self.__renderization.draw_entity(unities, (pos[0], pos[1]))
+                self.__renderization.draw_lifebar(unities)

@@ -40,7 +40,7 @@ class LevelBuilder:
                 if ents[0] not in ENEMIES:
                     continue
 
-                if chance <=ents[2]:
+                if chance <= ents[2]:
                     cache = Entities(ENEMIES[ents[0]]())
                     level = random.randint(ents[1][0], ents[1][1])
                     cache.profile.stats['level']['current'] = level

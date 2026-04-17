@@ -1,68 +1,45 @@
 import pygame, random
-from core.inputs import InputManager
+from src.core.manager_inputs import inputManager
 
-class ActionSystem:
-    def __init__(self, user, buffer, eventtoken):
-        self.user   = user
-        self.buffer = buffer
-        self.event  = eventtoken
-        self.info   = {
-            'action': {
-                'selected': False,
-                'number': 0,},
-            'target': {
-                'selected': False,
-                'number': 0,}
-        }
+class Passive:
+    def __init__(self, name):
+        self.name = name
 
-    def actions(self):
-        buttons = InputManager(self.event)
-        anumber = self.info['action']['number']
+class Pact:
+    def __init__(self, name, description, conditions):
+        self.name        = name
+        self.description = description
+        self.conditions  = conditions
 
-        if buttons.horizontalup() is True:
-            if self.info['action']['number'] <= 0:
-                self.info['action']['number'] = len(self.user.history.skills) - 1
-            else:
-                self.info['action']['number'] -= 1
-        elif buttons.horizontalup() is False:
-            if self.info['action']['number'] >= len(self.user.history.skills) - 1:
-                self.info['action']['number'] = 0
-            else:
-                self.info['action']['number'] += 1
+        self.type        = "Pact"
+        
 
-        if anumber != self.info['action']['number']:
-            print(f"Selected action: {self.user.history.skills[self.info['action']['number']]}")
+    def upload(self):
+        return # ainda não tá pronto
 
-        if buttons.confirmup():
-            self.info['action']['selected'] = True
-    
-    def targeting(self):
-        buttons = InputManager(self.event)
-        tnumber = self.info['target']['number']
+class Active:
+    def __init__(self, name, type):
+        pass
 
-        if buttons.verticalup() is True:
-            if self.info['target']['number'] <= 0:
-                self.info['target']['number'] = len(self.buffer.info_enemies['enemies']) - 1
-            else:
-                self.info['target']['number'] -= 1
-        elif buttons.verticalup() is False:
-            if self.info['target']['number'] >= len(self.buffer.info_enemies['enemies']) - 1:
-                self.info['target']['number'] = 0
-            else:
-                self.info['target']['number'] += 1
+class vote_01(Pact):
+    def __init__(self, user):
+        self.user = user
+        codename  = self.user.job.data['info']['codename']
+        name        = 'Agony Rhythm'
+        description = f'{codename} sacrifices their own health to receive damage multiplication.'
+        cl_01_cp = self.user.profile.stats['hp']['original'] # cópia para restauração do HP original
+        cl_01    = True if self.user.profile.stats['hp']['maximum'] > cl_01_cp else False
+        conditions  = { 'self': { 0: None}, 'fight': None, 'use': None }
+        super().__init__(name, description, conditions)
+        
 
-        if tnumber != self.info['target']['number']:
-            print(f"Selected target: {self.buffer.info_enemies['enemies'][self.info['target']['number']]}")
 
-        if buttons.confirmup():
-            self.info['target']['selected'] = True
-            return True
 
-    def play(self):
-        if not self.info['action']['selected']:
-            self.actions()
-        else:
-            if self.targeting():
-                self.info['action']['selected'] = False
-                self.info['target']['selected'] = False
-                return True
+
+
+skills = {
+    'passive':{},
+    'pacts': {},
+    'skills': {},
+    'ultimate': {}     
+}
