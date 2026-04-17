@@ -1,8 +1,8 @@
 import pygame, json, os, datetime
 
 #? This code was built using Pygame Lib and Better Comments Extension (VS Code)
-from core.manager_flow  import FlowManager
-from core.manager_data import DataLoader
+from core.manager_flow   import FlowManager
+from core.manager_data   import DataLoader
 
 class GameLoop:
     def __init__(self):
@@ -18,6 +18,7 @@ class GameLoop:
     def run(self):
         while True:
             events = pygame.event.get()
+
             for event in events:
                 if event.type == pygame.QUIT:
                     pygame.quit()
