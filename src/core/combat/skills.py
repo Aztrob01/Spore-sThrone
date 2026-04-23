@@ -17,5 +17,9 @@ class Ac1(Technique):
 
 class Pa1(Technique):
     def __init__(self):
-        super().__init__("Ampliance", Passive(), [("user", "get_hitted", "==", True)], None)
+        super().__init__("Counter Attack!", Passive(), [("user", "get_hitted", "==", True)], None)
         
+    def use(self, user, target):
+        pass
+
+  

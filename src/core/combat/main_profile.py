@@ -11,6 +11,7 @@ class ProfileData:
 
         self.stats = {
             'hp': { 'original': self.attr.main['hp'], 'maximum': self.attr.main['hp'], 'current': self.attr.main['hp'] },
+            'mp': { 'original': 75, 'maximum': 75, 'current': 75 },
             'damage': {
                 'cr_damage_chance': ((5 + (self.attr.main['lky'] / 10)) / 100), 
                 'cr_damage_value': ((150 + (self.attr.main['dex'] / 10)) / 100),
