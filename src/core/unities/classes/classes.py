@@ -100,8 +100,3 @@ class alc:
         }
 
         self.name = self.data['name'] + ' ' + self.data['family']
-
-
-
-coco = cvl()
-print(coco.name)
