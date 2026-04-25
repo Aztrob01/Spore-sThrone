@@ -6,7 +6,7 @@ from core.combat.main_profile import ProfileData
 class Entities:
     def __init__(self, entity):
         self.job        = entity
-        self.codename   = entity.data['info']['codename']
+        self.codename   = entity.data['codename']
         
 
 
