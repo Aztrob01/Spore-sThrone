@@ -11,26 +11,65 @@ class ProfileData:
         
         self.state = ['fighting', 'idle']
         self.stats = {
-            'hp': { 'original': self.attr.main['hp'], 'maximum': self.attr.main['hp'], 'current': self.attr.main['hp'] },
-            'mp': { 'original': 75, 'maximum': 75, 'current': 75 },
+            'hp': { 
+                'original': self.attr.main['hp'], 
+                'maximum': self.attr.main['hp'], 
+                'current': self.attr.main['hp'], 
+                'extra': 0,
+                
+                'original_hp_multiplier': 1,
+                'maximum_hp_multiplier': 1,
+                'extra_hp_multiplier': 1,
+
+                'original_hp_bonus': 0,
+                'maximum_hp_bonus': 0,
+                'extra_hp_bonus': 0,
+                },
+            'mp': { 
+                'original': self.attr.main['mp'], 
+                'maximum': self.attr.main['mp'], 
+                'current': self.attr.main['mp'], 
+                'recover': 0,
+
+                'original_mp_multiplier': 1,
+                'maximum_mp_multiplier': 1,
+                'extra_mp_multiplier': 1,
+                'recover_multiplier': 1,
+
+                'original_mp_bonus': 0,
+                'maximum_mp_bonus': 0,
+                'recover_bonus': 0,
+                },
             'damage': {
                 'cr_damage_chance': ((5 + (self.attr.main['lky'] / 10)) / 100), 
                 'cr_damage_value': ((150 + (self.attr.main['dex'] / 10)) / 100),
-                'ph_damage_multiplier': 1,
-                'mg_damage_multiplier': 1,
+                
+                'sk_damage_multiplier': 1,
                 'ab_damage_multiplier': 1,
+                'cr_damage_multiplier': 1,
+
+                'sk_damage_bonus': 0,
+                'ab_damage_bonus': 0,
+                'cr_damage_bonus': 0,
             },
             'resistance': {
-                'ph_damage_resistance': self.attr.main['res'] / 2,
-                'mg_damage_resistance':  0,
-                'ab_damage_resistance':  0,
-                'cr_damage_resistance': 0,
-                'ab_resistance_multiplier':  1,
+                'resistance': self.attr.main['res'] / 2,
+                'ab_resistance_multiplier': 1,
+                'sk_resistance_multiplier': 1,
+                'cr_resistance_multiplier': 1,
+
+                'ab_resistance_bonus': 0,
+                'sk_resistance_bonus': 0,
+                'cr_resistance_bonus': 0,
             },
             'healing': {
                 'healing_base': self.attr.main['knw'],
+                
                 'healing_multiplier': 1,
                 'healing_receive_multiplier': 1,
+
+                'healing_bonus': 0,
+                'healing_receive_bonus': 0,
             },
             'status': {
                 'buffs': [],

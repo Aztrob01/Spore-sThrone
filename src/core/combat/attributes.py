@@ -7,3 +7,5 @@ class Attributes:
         self.main     = { }
         for keys in self.received:
             self.main[keys] = self.base[keys] + self.received[keys]
+        
+        self.main['mp'] = (user.job.data['stats']['knw'] + self.received['knw']) * 2  

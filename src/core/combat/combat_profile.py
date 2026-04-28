@@ -1,8 +1,8 @@
 class CombatProfileData:
-    def __init__(self, char):
-        self.user      = char
-        self.user_data = char.job.data
-        self.stats     = char.profile.stats
+    def __init__(self, user):
+        self.user      = user
+        self.user_data = user.job.data
+        self.stats     = user.profile.stats
         self.allies  = {}
         self.targets = {}
         
