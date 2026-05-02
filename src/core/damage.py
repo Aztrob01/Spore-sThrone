@@ -7,10 +7,11 @@ def sk_damage(user, target, amount=int, can_miss=False):
         if chance <= miss:
             return False
     
-    target.combat_profile.stats['hp']['current'] -= amount
-    user.combat_profile.history['dealt']['damage_by_skills'] += amount
-
-    if amount > user.combat_profile.history['dealt']['highest_damage_dealt']:
-        user.combat_profile.history['dealt']['highest_damage_dealt'] = amount
+    amount = (amount * user.combat_profile.multipliers['damage']['sk_damage_multiplier']) + user.combat_profile.multipliers['damage']['sk_damage_bonus']
     
+    target.combat_profile.static_stats['hp']['current'] -= amount
+    user.combat_profile.history['damage']['damage_by_'] += amount
+    if amount > user.combat_profile.history['damage']['highest']:
+        user.combat_profile.history['damage']['highest'] = amount
     return True
+

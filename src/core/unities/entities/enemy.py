@@ -44,7 +44,7 @@ class gob:
             'type': 'Monster',
             'codename': 'Goblin',
             
-            'stats': { 'hp': 100, 'str': 20, 'dex': 30, 'knw': 10, 'lky': 0, 'res': 0 },
+            'stats': { 'hp': 100, 'str': 20, 'dex': 30, 'knw': 10, 'lky': 32, 'res': 0 },
             'brain': { 'agr': 3, 'tac': 6, 'def': 1},
             'skills': {
                 'passive': {

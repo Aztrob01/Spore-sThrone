@@ -39,6 +39,7 @@ class CombatEngine:
                 
                 unities.combat_profile = CombatProfileData(unities)
                 unities.combat_profile.allies = x
+                print(unities.combat_profile.action_stats['damage']['cr_rate'], unities.job.data['name'])
             
             for unities in self.data['team']:
                 
@@ -49,6 +50,7 @@ class CombatEngine:
                 
                 unities.combat_profile = CombatProfileData(unities)
                 unities.combat_profile.allies = x
+                print(unities.combat_profile.action_stats['damage']['cr_rate'], unities.job.data['name'])
 
             self.__events = CombatEvents()
             self.__events.entities = self.data['entities']
@@ -73,6 +75,7 @@ class CombatEngine:
                 pos = self.data['positions']['r'][nums]
                 self.__renderization.draw_entity(unities, (pos[0], pos[1]))
                 self.__renderization.draw_lifebar(unities)
+        
         
 
     def start(self):
