@@ -11,10 +11,11 @@ class AnimaSprite:
         self.display = pygame.display.get_surface()
         self.loader  = DataLoader()
 
+        self.idle_position = None
         self.rect  = None
         self.image = None
         self.dimensions = (self.loader.data_settings['video']['actual_res'][0] * user.job.data['dimensions'], self.loader.data_settings['video']['actual_res'][0] * user.job.data['dimensions'])
-    
+
     def validate(self, path):
         if os.path.exists(path):
             return True

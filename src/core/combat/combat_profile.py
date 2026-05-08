@@ -12,13 +12,13 @@ class CombatProfileData:
         self.targets   = {}
 
         self.main_stats = user.profile.stats
-        self.multipliers  = {
+        self.multipliers  = { 
             'hp': {
                 'original_hp_multiplier': 1, 'maximum_hp_multiplier': 1, 'extra_hp_multiplier': 1,
                 'original_hp_bonus': 0, 'maximum_hp_bonus': 0, 'extra_hp_bonus': 0,
             },
             'mp': {
-                'maximum_mp_multiplier': 1, 'recovery_mp_multiplier': 1,
+                'maximum_mp_multiplier': 1, 'recovery_mp_multiplier': 1, 'mp_consumption_multiplier': 1,
                 'maximum_mp_bonus': 0, 'recovery_mp_bonus': 0,
             },
             'damage': {
@@ -31,7 +31,9 @@ class CombatProfileData:
             },
             'healing': {
                 'healing_multiplier': 1,
+                'recover_multiplier': 1,
                 'lifesteal_multiplier': 1,
+                'recover_bonus': 0,
                 'healing_bonus': 0,
             },
         }
@@ -42,7 +44,6 @@ class CombatProfileData:
                   },
             'mp': {
                 'current': self.main_stats['mp']['current'],
-                'recover': (self.main_stats['mp']['recover'] * self.multipliers['mp']['recovery_mp_multiplier']) + self.multipliers['mp']['recovery_mp_bonus'],
             },
             'healing': {
                 'lifesteal': 0,

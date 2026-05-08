@@ -1,27 +1,5 @@
 from core.combat.technique import Passive, Active, Ultimate, Pact
 
-class Buff:
-    def __init__(self, name, value, duration, priority, dealer):
-        self.name     = name
-        self.priority = priority
-        self.dealer   = dealer
-
-        self.value        = value
-        self.duration     = duration
-
-    def apply(self, target):
-        target.stats[self.target_stats[0], target.stats[1]] += self.value
-        if self.duration is not None:
-            self.duration -= 1
-    
-
-
-
-
-    
-
-        
-
 class ClaireMPSV(Passive):
     def __init__(self, user):
         requirements = {

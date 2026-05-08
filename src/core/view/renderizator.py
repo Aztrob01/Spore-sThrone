@@ -13,7 +13,6 @@ class Renderization:
         self.__ui  = None
         self.__gfx = None
         
-
     def draw_world(self, level, offset):
         pass
 
@@ -56,6 +55,7 @@ class Renderization:
 
         if entity.rect is None:
             entity.sprite.rect = entity.sprite.image.get_rect()
+            
         entity.sprite.rect.midbottom = pos
         self.draw_shadow(pos)
         self.__display.blit(entity.sprite.image, entity.sprite.rect)
