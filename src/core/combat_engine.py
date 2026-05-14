@@ -1,9 +1,7 @@
 import pygame
 
 from core.view.renderizator import Renderization
-from core.manager_events    import CombatEvents
-from core.combat.combat_profile import CombatProfileData
-
+from core.manager_events    import CombatEventManager
 
 class CombatEngine:
     def __init__(self):
@@ -14,7 +12,7 @@ class CombatEngine:
             'team': [],
             # match
             'temp': {'ready': False, 'over': False,
-                     'turns': [], 'active': 0, 'turn': 0 },
+                     'active': [], 'waiting': [], 'loop': 0, 'turn': 0},
             'positions': {
                 'l': { 0: (0.195, 0.550), 1: (0.149, 0.64), 2: (0.1, 0.725), 3: (0.255, 0.6),
                 4: (0.22, 0.68), 5: (0.170, 0.627)},
@@ -23,11 +21,24 @@ class CombatEngine:
             }
     }
         
-
-        self.__events  = CombatEvents()
+        self.__events  = CombatEventManager()
         self.__display = pygame.display.get_surface()
         self.__action_controller       = None
         self.__renderization           = Renderization()
+
+    def __draw(self):
+        self.__renderization.draw_background((0, 0))
+
+        for nums, unities in enumerate(self.data['entities']):
+            if unities is not None:
+                pos = unities.sprite.idle_position
+                self.__renderization.draw_entity(unities, (pos[0], pos[1]))
+                self.__renderization.draw_lifebar(unities)
+        for nums, unities in enumerate(self.data['team']):
+            if unities is not None:
+                pos = unities.sprite.idle_position
+                self.__renderization.draw_entity(unities, (pos[0], pos[1]))
+                self.__renderization.draw_lifebar(unities)
 
     def __idle_positionate(self, targets, side):
         positions = {
@@ -48,61 +59,51 @@ class CombatEngine:
             for num, target in enumerate(targets):
                 target.sprite.idle_position = positions[side][num]
 
-    def __mount_profiles(self, targets):
-        for unities in targets:
-            
-            x = []
-            for allies in targets:
-                if allies is not unities:
-                    x.append(allies)
-                
-            unities.combat_profile = CombatProfileData(unities)
-            unities.combat_profile.allies = x
-
-
-    def __compile(self):
-        if self.data['temp']['ready'] is False:
-
-            self.__mount_profiles(self.data['entities'])
+    def __load(self):
             self.__idle_positionate(self.data['entities'], 'l')
+            self.__idle_positionate(self.data['team'], 'r')
+
+            self.__events.mount_profiles(self.data['entities'])
+            self.__events.mount_profiles(self.data['team'])
 
             self.data['entities'].sort(key=lambda x: x.sprite.idle_position[0] + x.sprite.idle_position[1])
-            
 
-            self.__mount_profiles(self.data['team'])
-            self.__idle_positionate(self.data['team'], 'r')
-                
-            self.__events = CombatEvents()
             self.__events.entities = self.data['entities']
             self.__events.team     = self.data['team']
             
-            
             self.data['temp']['ready'] = True
 
+    def __organize_active_list(self):
+        key = self.data['temp']['active']
+        for entities in self.data['team']:
+            if entities in key:
+                continue
+            if len(key) < 10:
+                key.append(entities)
+        for entities in self.data['entities']:
+            if entities in key:
+                continue
+            if len(key) < 10:
+                key.append(entities)
 
-    def roll(self):
-        self
+        key.sort(key=lambda target : target.profile.stats['attributes']['str'])
 
+    def __entity_move(self):
+        entity = self.data['temp']['active'][0]
+        self.data['temp']['waiting'].append(entity)
+        self.data['temp']['active'].remove(entity) 
+    
     def play(self):
-        self.__renderization.draw_background((0, 0))
-
-        for nums, unities in enumerate(self.data['entities']):
-            if unities is not None:
-                pos = unities.sprite.idle_position
-                self.__renderization.draw_entity(unities, (pos[0], pos[1]))
-                self.__renderization.draw_lifebar(unities)
-        for nums, unities in enumerate(self.data['team']):
-            if unities is not None:
-                pos = unities.sprite.idle_position
-                self.__renderization.draw_entity(unities, (pos[0], pos[1]))
-                self.__renderization.draw_lifebar(unities)
-
+        if self.data['temp']['ready'] == False:
+            self.__load()
         
+        if self.data['temp']['loop'] != self.__events.loop:
+            self.__events.loop = self.data['temp']['loop']
+            self.__events.compile()
+            self.__organize_active_list()    
         
-        
+        if self.__events.fight():
+           self.data['temp']['loop'] += 1
+           
 
-    def start(self):
-        self.__compile()
-
-        self.play()
-        self.__events.play()
+        self.__draw()
