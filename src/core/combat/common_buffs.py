@@ -1,61 +1,91 @@
 class BuffModel:
-    def __init__(self, name, priority, duration):
-        self.type            = 'buff'
-        self.name            = name 
-        self.duration        = duration
-        self.priority        = priority
+    def __init__(self, target, name, priority, duration):
+        self.buff_id  = name #!
+        self.target   = target
+        self.origin   = None
+        self.name     = name
+        self.type     = None
+
+        self.priority = priority
+        self.duration = duration
 
         self.stats_path  = []
         self.final_path  = None
         self.value       = None
 
+
     def check(self):
-        if len(self.stats_path) < 3:
-            raise ValueError(f'Stats on buff are not correctly defined: {self.stats_path}')
-        if self.value is None or self.value == 0:
-            raise ValueError(f'{self.name} cannot be loaded. inner value error.')
+        if len(self.stats_path) < 3 or self.value is None or self.value == 0:
+            print(f'Stats on buff are not correctly defined: p:{self.stats_path} / v:{self.value}')
+            return False
         return True
 
-    def get_path(self, target):
-        profile = target.combat_profile
+    def get_path(self):
+        
+        profile = self.target.combat_profile
         maps = {
-            'static': target.combat_profile.static_stats,
-            'multipliers': target.combat_profile.multipliers,
-            'action': target.combat_profile.action_stats,
-        }
+            'static': profile.static_stats,
+            'multipliers': profile.multipliers,
+            'action': profile.action_stats,
+            }
 
         self.final_path = maps[self.stats_path[0]].get(self.stats_path[1])
 
-    def apply(self, target):
+        return self.final_path != None
+
+    def try_apply(self):
+        if self.type is None:
+            print(f'{self.name}: Error trying to fetch type {self.type}')
+            return False
+        if self.buff_id is None:
+            print(f'{self.name}: Error trying to fetch id {self.buff_id}')
+            return False
+        
+        path = self.target.combat_profile.status['buffs']
+
+        for objects in path:
+            if objects.buff_id == self.buff_id and objects is not self:
+                target = objects
+                
+                if target.type  ==  "UNQ":
+                    return False
+                elif target.type == "REF":
+                    self.duration = target.duration
+                    path.remove(target)
+
+        return True                       
+
+    def apply(self):
         stats = self.stats_path[2]
         self.final_path[stats] += self.value
     
-    def update(self, target):
-        self.check()
+    def update(self):
+        if self.check() is False:
+            return False
+        
         if self.final_path == None:
-            self.get_path(target)
-        self.apply(target)
+            if self.get_path() is False:
+                print(f'{self.name} on {self.target.job.name} has failed to fetch final stats')
+                return False
+            
+        if self.try_apply() is False:
+            return False
         
         if isinstance(self.duration, int):
-            self.duration -= 1
-        
+            if self.duration > 0:
+                self.duration -= 1
+            else:
+                return False
+
+        self.apply()
+
         return True
     
-class StackableBuff(BuffModel):
-    def __init__(self, name, priority, duration, stack_duration, stacks):
-        super().__init__(name, priority, duration)
+class StackBuffModel(BuffModel):
+    def __init__(self, target, name, priority, duration, type, stacks, stack_duration):
+        super().__init__(target, name, priority, duration, type)
+        self.stack = stacks
         self.stack_duration = stack_duration
-
-
-class HealingAuraBuff(BuffModel):
-    def __init__(self, priority=8, duration=4):
-        super().__init__("Healing Aura", priority, duration)
-        self.stats_path  = ['static', 'hp', 'current']
-        self.value = 15
-    
-    def apply(self, target):
-        stats = self.stats_path[2]
-        multipliers = target.combat_profile.multipliers['healing']
-        self.final_path[stats] += (self.value * multipliers['healing_multiplier']) + multipliers['healing_bonus']
-
-    
+        self.stack_position = 0
+        
+        self.stack_length   = (len(self.stack) - 1)
