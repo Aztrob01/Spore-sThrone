@@ -11,6 +11,7 @@ class ProfileData:
         
         self.state = ['fighting', 'idle']
         self.stats = {
+            'attributes': {},
             'hp': { 
                 'original': self.attr.main['hp'], 
                 'maximum': self.attr.main['hp'], 
@@ -37,6 +38,9 @@ class ProfileData:
             'level': { 'current': 1, 'exp': 0, 'total_exp': 0, 'max_level': 99 }
             }
         
+        for attributes in self.attr.main:
+            self.stats['attributes'][attributes] = self.attr.main[attributes]
+
         self.history = { 
             'received': {
                 'total_damage_mitigated': 0, 'mitigated_by_skills': 0, 'highest_damage_received': 0,
