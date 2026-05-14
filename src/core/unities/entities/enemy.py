@@ -1,5 +1,5 @@
 import random, pygame
-from core.combat.common_buffs import HealingAuraBuff
+from core.combat.common_buffs import ResetLifeBuff
 # -------------------------------------------
 # D
 
@@ -14,7 +14,7 @@ class dmy:
             'brain': { 'agr': 0, 'tac': 0, 'def': 0},
             'skills': {
                 'passive': {
-                    'main': HealingAuraBuff(),
+                    'main': None,
                     'family': None,
                 },
                 'active': {
