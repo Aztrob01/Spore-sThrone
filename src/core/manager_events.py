@@ -36,6 +36,14 @@ class CombatEventManager:
                 print(f'Removing {objects.name} from queue')
                 target_events.remove(objects)
 
+    def check_conditions(self, target):
+        x = False
+
+        for events in self.while_events:
+            if events.conditions(target):
+                x = True
+                events.update()
+        return x 
 
     def compile(self):
         creatures = []
@@ -63,6 +71,3 @@ class CombatEventManager:
                                      self.after_events.append(object)
 
         self.update_events(self.before_events)
-
-    def fight(self):
-        pass
