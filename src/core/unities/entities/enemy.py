@@ -11,7 +11,7 @@ class dmy:
             'codename': 'Dummy',
             
             'stats': { 'hp': 100, 'str': 0, 'dex': 0, 'knw': 0, 'lky': 0, 'res': 0 },
-            'brain': { 'agr': 0, 'tac': 0, 'def': 0},
+            'brain': { 'agr': 0, 'tac': 0, 'def': 0, 'actype': None},
             'skills': {
                 'passive': {
                     'main': None,
@@ -45,7 +45,7 @@ class gob:
             'codename': 'Goblin',
             
             'stats': { 'hp': 100, 'str': 20, 'dex': 30, 'knw': 10, 'lky': 32, 'res': 0 },
-            'brain': { 'agr': 3, 'tac': 6, 'def': 1},
+            'brain': { 'agr': 3, 'tac': 6, 'def': 1, 'actype': 'simple'},
             'skills': {
                 'passive': {
                     'main': None,
