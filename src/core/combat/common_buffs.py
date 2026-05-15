@@ -20,6 +20,9 @@ class BuffModel:
             return False
         return True
 
+    def conditions(self):
+        return False
+
     def get_path(self):
         
         profile = self.target.combat_profile
