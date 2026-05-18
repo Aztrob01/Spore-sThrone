@@ -1,5 +1,5 @@
 import random, pygame
-from core.combat.common_buffs import ResetLifeBuff
+
 # -------------------------------------------
 # D
 
@@ -45,7 +45,7 @@ class gob:
             'codename': 'Goblin',
             
             'stats': { 'hp': 100, 'str': 20, 'dex': 30, 'knw': 10, 'lky': 32, 'res': 0 },
-            'brain': { 'agr': 3, 'tac': 6, 'def': 1, 'actype': 'simple'},
+            'brain': { 'agr': 3, 'tac': 6, 'def': 1, 'actype': 'simple'}, 
             'skills': {
                 'passive': {
                     'main': None,

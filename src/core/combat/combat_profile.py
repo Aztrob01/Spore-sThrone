@@ -8,8 +8,8 @@ class CombatProfileData:
             'buffs':   [],
             'debuffs': [],
         }
-        self.allies    = {}
-        self.targets   = {}
+        self.allies    = []
+        self.targets   = []
 
         self.main_stats = user.profile.stats
         self.multipliers  = { 

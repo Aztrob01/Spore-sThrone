@@ -101,9 +101,5 @@ class CombatEngine:
             self.__events.loop = self.data['temp']['loop']
             self.__events.compile()
             self.__organize_active_list()    
-        
-        if self.__events.fight():
-           self.data['temp']['loop'] += 1
-           
 
         self.__draw()

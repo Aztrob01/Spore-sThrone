@@ -28,11 +28,11 @@ class CombatEventManager:
         target_event.sort(key=lambda target : target[0].priority)
 
     def update_events(self, target_events):
-        from core.combat.common_buffs import BuffModel, ResetLifeBuff
+        from core.combat.common_buffs import BuffModel
         from core.combat.common_passives import PassiveModel
 
         for objects in target_events:
-            if objects.update() is False:
+            if objects.update() == False:
                 print(f'Removing {objects.name} from queue')
                 target_events.remove(objects)
 
@@ -59,7 +59,7 @@ class CombatEventManager:
                 for items in path[key]:
                     if items != None:
                         object = items(unities)
-                        match object.priority:
+                        match object.buff_data['priority_level']:
                             case 1 | 2 | 3:
                                 if object not in self.before_events:
                                     self.before_events.append(object)

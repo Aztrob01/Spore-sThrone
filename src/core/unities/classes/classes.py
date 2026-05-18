@@ -3,7 +3,7 @@ import random
 
 # -------------------------------------------
 # C
-
+from core.combat.common_buffs import DamageBuff
 class cvl:
     def __init__(self):
         self.data = {
@@ -16,7 +16,7 @@ class cvl:
             'stats': { 'hp': 100, 'str': 20, 'dex': 40, 'knw': 10, 'lky': 20, 'res': 10 },
             'skills': {
                 'passive': {
-                    'main': None,
+                    'main': DamageBuff,
                     'family': None,
                 },
                 'active': {
