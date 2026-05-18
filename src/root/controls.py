@@ -1,0 +1,73 @@
+import pygame
+
+user = {
+    'wlrd_up': pygame.K_w,
+    'wlrd_dw': pygame.K_s,
+    'wrld_left': pygame.K_a,
+    'wrld_right': pygame.K_d,
+    'wrld_interact': pygame.K_f,
+    'wrld_open_questbook': pygame.K_j,
+    'wrld_open_bag': pygame.K_b,
+    'wrld_open_map': pygame.K_m,
+    'wrld_open_charmenu': pygame.K_c,
+    'wrld_game_pause': pygame.K_ESCAPE,
+
+    'interact_skip': pygame.K_SPACE,
+
+    'menu_retrieve': pygame.K_ESCAPE,
+    'menu_change_left': pygame.K_q,
+    'menu_change_right': pygame.K_e,
+    'menu_left': pygame.K_a,
+    'menu_right': pygame.K_d,
+    'menu_up': pygame.K_w,
+    'menu_dw': pygame.K_s,
+    'menu_interact': pygame.K_f,
+
+    'fight_action_next': pygame.K_d,
+    'fight_action_prev': pygame.K_a,
+    'fight_action_up': pygame.K_w,
+    'fight_action_dw': pygame.K_s,
+    'fight_interact': pygame.K_f,
+    'fight_retrieve': pygame.K_ESCAPE,
+    'fight_change_infodata': pygame.K_i,
+    'fight_change_showdamage': pygame.K_o,
+    'fight_pause': pygame.K_p,
+    'fight_target_next': pygame.K_d,
+    'fight_target_prev': pygame.K_w,
+}
+
+default = {
+    'wlrd_up': pygame.K_w,
+    'wlrd_dw': pygame.K_s,
+    'wrld_left': pygame.K_a,
+    'wrld_right': pygame.K_d,
+    'wrld_interact': pygame.K_f,
+    'wrld_open_questbook': pygame.K_j,
+    'wrld_open_bag': pygame.K_b,
+    'wrld_open_map': pygame.K_m,
+    'wrld_open_charmenu': pygame.K_c,
+    'wrld_game_pause': pygame.K_ESCAPE,
+
+    'interact_skip': pygame.K_SPACE,
+
+    'menu_retrieve': pygame.K_ESCAPE,
+    'menu_change_left': pygame.K_q,
+    'menu_change_right': pygame.K_e,
+    'menu_left': pygame.K_a,
+    'menu_right': pygame.K_d,
+    'menu_up': pygame.K_w,
+    'menu_dw': pygame.K_s,
+    'menu_interact': pygame.K_f,
+
+    'fight_action_next': pygame.K_d,
+    'fight_action_prev': pygame.K_a,
+    'fight_action_up': pygame.K_w,
+    'fight_action_dw': pygame.K_s,
+    'fight_interact': pygame.K_f,
+    'fight_retrieve': pygame.K_ESCAPE,
+    'fight_change_infodata': pygame.K_i,
+    'fight_change_showdamage': pygame.K_o,
+    'fight_pause': pygame.K_p,
+    'fight_target_next': pygame.K_d,
+    'fight_target_prev': pygame.K_w,
+}
