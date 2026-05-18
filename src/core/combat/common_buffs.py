@@ -1,94 +1,118 @@
 class BuffModel:
-    def __init__(self, target, name, priority, duration):
-        self.buff_id  = name #!
-        self.target   = target
-        self.origin   = None
-        self.name     = name
-        self.type     = None
+    def __init__(self, user, name, priority, path, value, duration):
+        import uuid
+        self.object_data = { 
+            'user': user.combat_profile,
+            
+            'oid': self.__class__.__name__.lower(),
+            'uid': 0,
+            'name': name,
+        }
 
-        self.priority = priority
-        self.duration = duration
+        self.buff_data = {
+            'origin': None,
+            'path': path,
+            'address': None,
+            'priority_level': priority,
+            'update_type': 'default',
 
-        self.stats_path  = []
-        self.final_path  = None
-        self.value       = None
+            'duration': duration,
+            'max_duration': 'default',
+            'value': value,
 
+            'can_stack': False,
+            'val_stack': None,
+            'dur_stack': 3,
+            'num_stack': 0,
+            
+            'conditions': None,
+        }
 
-    def check(self):
-        if len(self.stats_path) < 3 or self.value is None or self.value == 0:
-            print(f'Stats on buff are not correctly defined: p:{self.stats_path} / v:{self.value}')
+    def get_address(self):
+        obj = self.buff_data.get('path')
+
+        if obj is None:
+            print(f'{self.object_data['name']}: path not found. Jumping this object in Queue')
             return False
+        else:
+
+            from root.attribute_operations import get_attributes
+
+            target  = self.object_data['user']
+            attribute = get_attributes(target, obj[0])
+            attribute = attribute[obj[1]]
+            self.buff_data['address'] = attribute
+
         return True
-
-    def conditions(self):
-        return False
-
-    def get_path(self):
-        
-        profile = self.target.combat_profile
-        maps = {
-            'static': profile.static_stats,
-            'multipliers': profile.multipliers,
-            'action': profile.action_stats,
-            }
-
-        self.final_path = maps[self.stats_path[0]].get(self.stats_path[1])
-
-        return self.final_path != None
-
+    
     def try_apply(self):
-        if self.type is None:
-            print(f'{self.name}: Error trying to fetch type {self.type}')
+        if self.object_data['user'] is None:
+            print('No user for this buff. An fatal error are caused')
             return False
-        if self.buff_id is None:
-            print(f'{self.name}: Error trying to fetch id {self.buff_id}')
+
+        if isinstance(self.buff_data['duration'], int) and self.buff_data['duration'] < 1:
+            print(f'{self.object_data['name']} has no duration left.')
             return False
         
-        path = self.target.combat_profile.status['buffs']
+        if self.buff_data['value'] <= 0:
+            return False
 
-        for objects in path:
-            if objects.buff_id == self.buff_id and objects is not self:
-                target = objects
-                
-                if target.type  ==  "UNQ":
-                    return False
-                elif target.type == "REF":
-                    self.duration = target.duration
-                    path.remove(target)
-
-        return True                       
+        return True
+        
+    def conditions(self, target):
+        if self.buff_data['conditions'] == None:
+            pass
+        return True
 
     def apply(self):
-        stats = self.stats_path[2]
-        self.final_path[stats] += self.value
+        if self.buff_data['can_stack'] == False:
+            self.buff_data['address'][self.buff_data['path'][2]]  += self.buff_data['value']
+            print(self.object_data['user'].multipliers['damage']['damage_multiplier'])
+        else:
+            num = self.buff_data['num_stack']
+            self.buff_data['address'][self.buff_data['path'][2]] += self.buff_data['val_stack'][num]
     
     def update(self):
-        if self.check() is False:
-            return False
-        
-        if self.final_path == None:
-            if self.get_path() is False:
-                print(f'{self.name} on {self.target.job.name} has failed to fetch final stats')
+        if self.try_apply():
+            if self.get_address() is False:
                 return False
+        
+            self.apply()
             
-        if self.try_apply() is False:
+            if isinstance(self.buff_data['duration'], int):
+                self.buff_data['duration'] -= 1
+        else:
+            return False
+
+        return True
+
+class StackBuffModel(BuffModel):
+    def __init__(self, user, name, priority, path, value, duration):
+        super().__init__(user, name, priority, path, value, duration)
+        self.buff_data['can_stack'] = True
+        self.buff_data['dur_stack'] = duration
+        self.buff_data['val_stack'] = value
+    
+    def stack_update(self):
+        if self.buff_data['num_stack'] < len(self.buff_data['val_stack']):
+            self.buff_data['num_stack'] += 1 
+
+    def update(self):
+        if self.get_address() is False:
             return False
         
-        if isinstance(self.duration, int):
-            if self.duration > 0:
-                self.duration -= 1
-            else:
-                return False
+        if self.try_apply():
+            self.apply()
+            self.stack_update()
 
-        self.apply()
+            if isinstance(self.buff_data['duration'], int):
+                self.buff_data['duration'] -= 1
+        else:
+            return False
 
         return True
     
-class StackBuffModel(BuffModel):
-    def __init__(self, target, name, priority, duration, type, stacks, stack_duration):
-        super().__init__(target, name, priority, duration, type)
-        self.stack = stacks
-        self.stack_duration = stack_duration
-        self.stack_position = 0
-        
-        self.stack_length   = (len(self.stack) - 1)
+class DamageBuff(BuffModel):
+    def __init__(self, user):
+        super().__init__(user, "Damage Buff", 2, ['multipliers', 'damage', 'damage_multiplier'], 0.5, 7)
+
