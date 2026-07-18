@@ -1,0 +1,123 @@
+{
+
+    "codename": "cavaliere",
+    
+    "dead": 
+    {
+        
+        "frame_0": 
+        { 
+            "duration": 0,
+            "path": "defeated.png",
+            "shadow_type": 2,
+            "reverse": false,
+            "dimensions": 1
+        }
+        
+    },
+    "low_life": 
+    { 
+
+        "frame_0":
+        { 
+            "duration": 0,
+            "path": "low_life.png",
+            "shadow_type": 2,
+            "reverse": false,
+            "dimensions": 1
+        }
+
+    },
+    "hitted": 
+    { 
+
+        "frame_0":
+        { 
+            "duration": 0,
+            "path": "hitted.png",
+            "shadow_type": 2,
+            "reverse": false,
+            "dimensions": 1
+        }
+
+    },
+    "attacking": 
+    { 
+
+        "frame_0":
+        { 
+            "duration": 0,
+            "path": "attack.png",
+            "shadow_type": 2,
+            "reverse": false,
+            "dimensions": 1
+        }
+
+    },
+    "idle": 
+    { 
+
+        "frame_0":
+        { 
+            "duration": 0,
+            "path": "idle.png",
+            "shadow_type": 2,
+            "reverse": false,
+            "dimensions": 1
+        }
+
+    },
+    "wlrd_front": 
+    { 
+
+        "frame_0":
+        { 
+            "duration": 0,
+            "path": "world_front.png",
+            "shadow_type": 2,
+            "reverse": false,
+            "dimensions": 1
+        }
+
+    },
+    "wlrd_back": 
+    { 
+
+        "frame_0":
+        { 
+            "duration": 0,
+            "path": "world_back.png",
+            "shadow_type": 2,
+            "reverse": false,
+            "dimensions": 1
+        }
+
+    },
+    "wlrd_l_side": 
+    { 
+
+        "frame_0":
+        { 
+            "duration": 0,
+            "path": "world_side.png",
+            "shadow_type": 2,
+            "reverse": false,
+            "dimensions": 1
+        }
+
+    },
+    "wlrd_r_side": 
+    { 
+
+        "frame_0":
+        { 
+            "duration": 0,
+            "path": "world_side.png",
+            "shadow_type": 2,
+            "reverse": true,
+            "dimensions": 1
+        }
+
+    }
+
+}
